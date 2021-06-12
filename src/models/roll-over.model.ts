@@ -1,4 +1,5 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {Medidor} from './medidor.model';
 
 @model({settings: {idInjection: false, mssql: {schema: 'dbo', table: 'rollOver'}}})
 export class RollOver extends Entity {
@@ -11,16 +12,6 @@ export class RollOver extends Entity {
     mssql: {columnName: 'id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'NO'},
   })
   id: number;
-
-  @property({
-    type: 'number',
-    required: true,
-    precision: 10,
-    scale: 0,
-    mssql: {columnName: 'medidorId', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'NO'},
-  })
-  medidorId: number;
-
   @property({
     type: 'date',
     mssql: {columnName: 'fecha', dataType: 'datetime', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
@@ -64,6 +55,8 @@ export class RollOver extends Entity {
   })
   estado?: boolean;
 
+  @belongsTo(() => Medidor)
+  medidorId: number;
   // Define well-known properties here
 
   // Indexer property to allow additional data

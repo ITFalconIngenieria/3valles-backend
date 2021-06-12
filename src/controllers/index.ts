@@ -5,3 +5,5 @@ export * from './jerarquia.controller';
 export * from './medidor-entidad.controller';
 export * from './rollover.controller';
 export * from './transformaciones.controller';
+export * from './medidor-roll-over.controller';
+export * from './roll-over-medidor.controller';
