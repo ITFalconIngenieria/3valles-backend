@@ -4,27 +4,23 @@ import {
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
-  put,
-  del,
-  requestBody,
-  response,
+  del, get,
+  getModelSchemaRef, param, patch, post, put, requestBody,
+  response
 } from '@loopback/rest';
 import {Jerarquia} from '../models';
-import {JerarquiaRepository} from '../repositories';
+import {JerarquiaRepository, VJerarquiasRepository} from '../repositories';
 
 export class JerarquiaController {
   constructor(
     @repository(JerarquiaRepository)
-    public jerarquiaRepository : JerarquiaRepository,
-  ) {}
+    public jerarquiaRepository: JerarquiaRepository,
+    @repository(VJerarquiasRepository)
+    public vJerarquiasRepository: VJerarquiasRepository,
+  ) { }
 
   @post('/jerarquias')
   @response(200, {
@@ -44,7 +40,9 @@ export class JerarquiaController {
     })
     jerarquia: Omit<Jerarquia, 'id'>,
   ): Promise<Jerarquia> {
-    return this.jerarquiaRepository.create(jerarquia);
+    let data = await this.jerarquiaRepository.create(jerarquia);
+
+    return await this.vJerarquiasRepository.findById(data.id, {});
   }
 
   @get('/jerarquias/count')

@@ -4,3 +4,4 @@ export * from './medidor-entidad.repository';
 export * from './medidor.repository';
 export * from './roll-over.repository';
 export * from './transformaciones.repository';
+export * from './v-jerarquias.repository';
