@@ -6,10 +6,11 @@ import {Entity, model, property} from '@loopback/repository';
 export class VMedidorVariable extends Entity {
   @property({
     type: 'number',
-    required: true,
+    required: false,
     precision: 10,
+    id: 1,
     scale: 0,
-    mssql: {columnName: 'id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'NO'},
+    mssql: {columnName: 'id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'YES'},
   })
   id: number;
 
