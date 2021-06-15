@@ -1,4 +1,4 @@
-import {Entity, model, property, hasMany} from '@loopback/repository';
+import {Entity, hasMany, model, property} from '@loopback/repository';
 import {RollOver} from './roll-over.model';
 
 @model({settings: {idInjection: false, mssql: {schema: 'dbo', table: 'medidor'}}})
@@ -20,6 +20,15 @@ export class Medidor extends Entity {
     mssql: {columnName: 'codigo', dataType: 'varchar', dataLength: 100, dataPrecision: null, dataScale: null, nullable: 'NO'},
   })
   codigo: string;
+
+  @property({
+    type: 'number',
+    required: false,
+    precision: 10,
+    scale: 0,
+    mssql: {columnName: 'variableId', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'YES'},
+  })
+  variableid: number;
 
   @property({
     type: 'number',
