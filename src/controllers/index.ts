@@ -8,3 +8,4 @@ export * from './transformaciones.controller';
 export * from './medidor-roll-over.controller';
 export * from './roll-over-medidor.controller';
 export * from './v-jerarquias.controller';
+export * from './v-medidor-variable.controller';

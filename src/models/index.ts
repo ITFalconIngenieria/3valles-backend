@@ -5,3 +5,4 @@ export * from './jerarquia.model';
 export * from './medidor-entidad.model';
 export * from './transformaciones.model';
 export * from './v-jerarquias.model';
+export * from './v-medidor-variable.model';
