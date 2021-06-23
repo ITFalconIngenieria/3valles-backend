@@ -1,4 +1,6 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {Medidor} from './medidor.model';
+import {Variable} from './variable.model';
 
 @model({
   settings: {idInjection: false, mssql: {schema: 'dbo', table: 'variableMedidor'}}
@@ -13,25 +15,6 @@ export class VariableMedidor extends Entity {
     mssql: {columnName: 'id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'NO'},
   })
   id: number;
-
-  @property({
-    type: 'number',
-    required: true,
-    precision: 10,
-    scale: 0,
-    mssql: {columnName: 'medidorId', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'NO'},
-  })
-  medidorId: number;
-
-  @property({
-    type: 'number',
-    required: true,
-    precision: 10,
-    scale: 0,
-    mssql: {columnName: 'variableId', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'NO'},
-  })
-  variableId: number;
-
   @property({
     type: 'number',
     required: true,
@@ -41,6 +24,11 @@ export class VariableMedidor extends Entity {
   })
   quantityId: number;
 
+  @belongsTo(() => Medidor)
+  medidorId: number;
+
+  @belongsTo(() => Variable)
+  variableId: number;
   // Define well-known properties here
 
   // Indexer property to allow additional data

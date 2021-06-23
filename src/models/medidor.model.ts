@@ -1,5 +1,6 @@
 import {Entity, hasMany, model, property} from '@loopback/repository';
 import {RollOver} from './roll-over.model';
+import {VariableMedidor} from './variable-medidor.model';
 
 @model({settings: {idInjection: false, mssql: {schema: 'dbo', table: 'medidor'}}})
 export class Medidor extends Entity {
@@ -52,12 +53,21 @@ export class Medidor extends Entity {
 
   @property({
     type: 'boolean',
+    mssql: {columnName: 'tipo', dataType: 'bit', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
+  })
+  tipo?: boolean;
+
+  @property({
+    type: 'boolean',
     mssql: {columnName: 'estado', dataType: 'bit', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
   })
   estado?: boolean;
 
   @hasMany(() => RollOver)
   rollOvers: RollOver[];
+
+  @hasMany(() => VariableMedidor)
+  variableMedidors: VariableMedidor[];
   // Define well-known properties here
 
   // Indexer property to allow additional data
