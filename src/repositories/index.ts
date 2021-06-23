@@ -6,3 +6,5 @@ export * from './roll-over.repository';
 export * from './transformaciones.repository';
 export * from './v-jerarquias.repository';
 export * from './v-medidor-variable.repository';
+export * from './variable-medidor.repository';
+export * from './variable.repository';

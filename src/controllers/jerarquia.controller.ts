@@ -134,8 +134,9 @@ export class JerarquiaController {
   async replaceById(
     @param.path.number('id') id: number,
     @requestBody() jerarquia: Jerarquia,
-  ): Promise<void> {
+  ): Promise<Jerarquia> {
     await this.jerarquiaRepository.replaceById(id, jerarquia);
+    return await this.vJerarquiasRepository.findById(id, {});
   }
 
   @del('/jerarquias/{id}')

@@ -9,26 +9,25 @@ export class Medidor extends Entity {
     precision: 10,
     scale: 0,
     id: 1,
-    mssql: {columnName: 'id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'NO'},
+    mssql: {columnName: 'id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'YES'},
   })
   id: number;
-
-  @property({
-    type: 'string',
-    required: true,
-    length: 100,
-    mssql: {columnName: 'codigo', dataType: 'varchar', dataLength: 100, dataPrecision: null, dataScale: null, nullable: 'NO'},
-  })
-  codigo: string;
 
   @property({
     type: 'number',
     required: false,
     precision: 10,
     scale: 0,
-    mssql: {columnName: 'variableId', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'YES'},
+    mssql: {columnName: 'sourceId', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'YES'},
   })
-  variableid: number;
+  sourceId: number;
+
+  @property({
+    type: 'string',
+    length: -1,
+    mssql: {columnName: 'descripcion', dataType: 'varchar', dataLength: -1, dataPrecision: null, dataScale: null, nullable: 'YES'},
+  })
+  descripcion?: string;
 
   @property({
     type: 'number',
