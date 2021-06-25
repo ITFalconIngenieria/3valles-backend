@@ -31,18 +31,18 @@ export class Medidor extends Entity {
   descripcion?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
     precision: 53,
     mssql: {columnName: 'lecturaMax', dataType: 'float', dataLength: null, dataPrecision: 53, dataScale: null, nullable: 'YES'},
   })
-  lecturaMax?: number;
+  lecturaMax?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
     precision: 53,
     mssql: {columnName: 'multiplicador', dataType: 'float', dataLength: null, dataPrecision: 53, dataScale: null, nullable: 'YES'},
   })
-  multiplicador?: number;
+  multiplicador?: string;
 
   @property({
     type: 'string',
