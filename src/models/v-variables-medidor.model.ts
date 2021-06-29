@@ -18,6 +18,14 @@ export class VVariablesMedidor extends Entity {
     type: 'number',
     precision: 10,
     scale: 0,
+    mssql: {columnName: 'medidorId', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'YES'},
+  })
+  medidorId?: number;
+
+  @property({
+    type: 'number',
+    precision: 10,
+    scale: 0,
     mssql: {columnName: 'quantityId', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'YES'},
   })
   quantityId?: number;
