@@ -19,9 +19,9 @@ export class MedidorEntidad extends Entity {
     required: true,
     precision: 10,
     scale: 0,
-    mssql: {columnName: 'medidorId', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'NO'},
+    mssql: {columnName: 'variableMedidorId', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'NO'},
   })
-  medidorId: number;
+  variableMedidorId: number;
 
   @property({
     type: 'number',
