@@ -1,5 +1,4 @@
-import {Entity, model, property, hasMany} from '@loopback/repository';
-import {RollOver} from './roll-over.model';
+import {Entity, hasMany, model, property} from '@loopback/repository';
 import {VariableMedidor} from './variable-medidor.model';
 
 @model({settings: {idInjection: false, mssql: {schema: 'dbo', table: 'variable'}}})
@@ -26,9 +25,6 @@ export class Variable extends Entity {
     mssql: {columnName: 'estado', dataType: 'bit', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
   })
   estado?: boolean;
-
-  @hasMany(() => RollOver)
-  rollOvers: RollOver[];
 
   @hasMany(() => VariableMedidor)
   variableMedidors: VariableMedidor[];

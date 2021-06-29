@@ -9,3 +9,4 @@ export * from './variable-medidor.repository';
 export * from './variable.repository';
 
 export * from './v-medidor-pme.repository';
+export * from './v-variables-medidor.repository';
