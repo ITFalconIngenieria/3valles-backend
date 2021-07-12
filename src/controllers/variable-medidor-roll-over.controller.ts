@@ -16,20 +16,20 @@ import {
   requestBody,
 } from '@loopback/rest';
 import {
-  Medidor,
+  VariableMedidor,
   RollOver,
 } from '../models';
-import {MedidorRepository} from '../repositories';
+import {VariableMedidorRepository} from '../repositories';
 
-export class MedidorRollOverController {
+export class VariableMedidorRollOverController {
   constructor(
-    @repository(MedidorRepository) protected medidorRepository: MedidorRepository,
+    @repository(VariableMedidorRepository) protected variableMedidorRepository: VariableMedidorRepository,
   ) { }
 
-  @get('/medidors/{id}/roll-overs', {
+  @get('/variable-medidors/{id}/roll-overs', {
     responses: {
       '200': {
-        description: 'Array of Medidor has many RollOver',
+        description: 'Array of VariableMedidor has many RollOver',
         content: {
           'application/json': {
             schema: {type: 'array', items: getModelSchemaRef(RollOver)},
@@ -42,38 +42,38 @@ export class MedidorRollOverController {
     @param.path.number('id') id: number,
     @param.query.object('filter') filter?: Filter<RollOver>,
   ): Promise<RollOver[]> {
-    return this.medidorRepository.rollOvers(id).find(filter);
+    return this.variableMedidorRepository.rollOvers(id).find(filter);
   }
 
-  @post('/medidors/{id}/roll-overs', {
+  @post('/variable-medidors/{id}/roll-overs', {
     responses: {
       '200': {
-        description: 'Medidor model instance',
+        description: 'VariableMedidor model instance',
         content: {'application/json': {schema: getModelSchemaRef(RollOver)}},
       },
     },
   })
   async create(
-    @param.path.number('id') id: typeof Medidor.prototype.id,
+    @param.path.number('id') id: typeof VariableMedidor.prototype.id,
     @requestBody({
       content: {
         'application/json': {
           schema: getModelSchemaRef(RollOver, {
-            title: 'NewRollOverInMedidor',
+            title: 'NewRollOverInVariableMedidor',
             exclude: ['id'],
-            optional: ['medidorId']
+            optional: ['variableMedidorId']
           }),
         },
       },
     }) rollOver: Omit<RollOver, 'id'>,
   ): Promise<RollOver> {
-    return this.medidorRepository.rollOvers(id).create(rollOver);
+    return this.variableMedidorRepository.rollOvers(id).create(rollOver);
   }
 
-  @patch('/medidors/{id}/roll-overs', {
+  @patch('/variable-medidors/{id}/roll-overs', {
     responses: {
       '200': {
-        description: 'Medidor.RollOver PATCH success count',
+        description: 'VariableMedidor.RollOver PATCH success count',
         content: {'application/json': {schema: CountSchema}},
       },
     },
@@ -90,13 +90,13 @@ export class MedidorRollOverController {
     rollOver: Partial<RollOver>,
     @param.query.object('where', getWhereSchemaFor(RollOver)) where?: Where<RollOver>,
   ): Promise<Count> {
-    return this.medidorRepository.rollOvers(id).patch(rollOver, where);
+    return this.variableMedidorRepository.rollOvers(id).patch(rollOver, where);
   }
 
-  @del('/medidors/{id}/roll-overs', {
+  @del('/variable-medidors/{id}/roll-overs', {
     responses: {
       '200': {
-        description: 'Medidor.RollOver DELETE success count',
+        description: 'VariableMedidor.RollOver DELETE success count',
         content: {'application/json': {schema: CountSchema}},
       },
     },
@@ -105,6 +105,6 @@ export class MedidorRollOverController {
     @param.path.number('id') id: number,
     @param.query.object('where', getWhereSchemaFor(RollOver)) where?: Where<RollOver>,
   ): Promise<Count> {
-    return this.medidorRepository.rollOvers(id).delete(where);
+    return this.variableMedidorRepository.rollOvers(id).delete(where);
   }
 }

@@ -1,8 +1,8 @@
 import {Getter, inject} from '@loopback/core';
 import {BelongsToAccessor, DefaultCrudRepository, repository} from '@loopback/repository';
 import {ConnDataSource} from '../datasources';
-import {Medidor, RollOver, RollOverRelations} from '../models';
-import {MedidorRepository} from './medidor.repository';
+import {RollOver, RollOverRelations, VariableMedidor} from '../models';
+import {VariableMedidorRepository} from './variable-medidor.repository';
 
 export class RollOverRepository extends DefaultCrudRepository<
   RollOver,
@@ -10,13 +10,14 @@ export class RollOverRepository extends DefaultCrudRepository<
   RollOverRelations
 > {
 
-  public readonly medidor: BelongsToAccessor<Medidor, typeof RollOver.prototype.id>;
+  public readonly variableMedidor: BelongsToAccessor<VariableMedidor, typeof RollOver.prototype.id>;
 
   constructor(
-    @inject('datasources.conn') dataSource: ConnDataSource, @repository.getter('MedidorRepository') protected medidorRepositoryGetter: Getter<MedidorRepository>,
+    @inject('datasources.conn') dataSource: ConnDataSource,
+    @repository.getter('VariableMedidorRepository') protected variableMedidorRepositoryGetter: Getter<VariableMedidorRepository>
   ) {
     super(RollOver, dataSource);
-    this.medidor = this.createBelongsToAccessorFor('medidor', medidorRepositoryGetter,);
-    this.registerInclusionResolver('medidor', this.medidor.inclusionResolver);
+    this.variableMedidor = this.createBelongsToAccessorFor('variableMedidor', variableMedidorRepositoryGetter,);
+    this.registerInclusionResolver('variableMedidor', this.variableMedidor.inclusionResolver);
   }
 }

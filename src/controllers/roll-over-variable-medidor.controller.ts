@@ -8,31 +8,31 @@ import {
 } from '@loopback/rest';
 import {
   RollOver,
-  Medidor,
+  VariableMedidor,
 } from '../models';
 import {RollOverRepository} from '../repositories';
 
-export class RollOverMedidorController {
+export class RollOverVariableMedidorController {
   constructor(
     @repository(RollOverRepository)
     public rollOverRepository: RollOverRepository,
   ) { }
 
-  @get('/roll-overs/{id}/medidor', {
+  @get('/roll-overs/{id}/variable-medidor', {
     responses: {
       '200': {
-        description: 'Medidor belonging to RollOver',
+        description: 'VariableMedidor belonging to RollOver',
         content: {
           'application/json': {
-            schema: {type: 'array', items: getModelSchemaRef(Medidor)},
+            schema: {type: 'array', items: getModelSchemaRef(VariableMedidor)},
           },
         },
       },
     },
   })
-  async getMedidor(
+  async getVariableMedidor(
     @param.path.number('id') id: typeof RollOver.prototype.id,
-  ): Promise<Medidor> {
-    return this.rollOverRepository.medidor(id);
+  ): Promise<VariableMedidor> {
+    return this.rollOverRepository.variableMedidor(id);
   }
 }

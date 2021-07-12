@@ -1,6 +1,7 @@
-import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {Entity, model, property, belongsTo, hasMany} from '@loopback/repository';
 import {Medidor} from './medidor.model';
 import {Variable} from './variable.model';
+import {RollOver} from './roll-over.model';
 
 @model({
   settings: {idInjection: false, mssql: {schema: 'dbo', table: 'variableMedidor'}}
@@ -29,6 +30,9 @@ export class VariableMedidor extends Entity {
 
   @belongsTo(() => Variable)
   variableId: number;
+
+  @hasMany(() => RollOver)
+  rollOvers: RollOver[];
   // Define well-known properties here
 
   // Indexer property to allow additional data
