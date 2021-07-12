@@ -18,6 +18,14 @@ export class VVariablesMedidor extends Entity {
     type: 'number',
     precision: 10,
     scale: 0,
+    mssql: {columnName: 'variableMedidorId', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'YES'},
+  })
+  variableMedidorId?: number;
+
+  @property({
+    type: 'number',
+    precision: 10,
+    scale: 0,
     mssql: {columnName: 'medidorId', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'YES'},
   })
   medidorId?: number;
@@ -37,6 +45,15 @@ export class VVariablesMedidor extends Entity {
     mssql: {columnName: 'name', dataType: 'nvarchar', dataLength: 200, dataPrecision: null, dataScale: null, nullable: 'NO'},
   })
   name: string;
+
+  @property({
+    type: 'number',
+    precision: 10,
+    scale: 0,
+    mssql: {columnName: 'variableId', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'YES'},
+  })
+  variableId?: number;
+
 
   // Define well-known properties here
 
