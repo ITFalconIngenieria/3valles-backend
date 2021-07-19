@@ -10,3 +10,4 @@ export * from './variable.model';
 
 export * from './v-medidor-pme.model';
 export * from './v-variables-medidor.model';
+export * from './v-variable-pme.model';

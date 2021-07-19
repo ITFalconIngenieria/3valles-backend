@@ -16,3 +16,4 @@ export * from './variable-medidor-variable.controller';
 export * from './variable-medidor.controller';
 export * from './variable-variable-medidor.controller';
 export * from './variable.controller';
+export * from './v-variable-pme.controller';
