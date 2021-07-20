@@ -54,6 +54,13 @@ export class VVariablesMedidor extends Entity {
   })
   variableId?: number;
 
+  @property({
+    type: 'string',
+    required: true,
+    length: 200,
+    mssql: {columnName: 'descripcion', dataType: 'nvarchar', dataLength: 200, dataPrecision: null, dataScale: null, nullable: 'NO'},
+  })
+  descripcion: string;
 
   // Define well-known properties here
 
