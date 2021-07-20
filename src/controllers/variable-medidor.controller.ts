@@ -4,27 +4,23 @@ import {
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
-  put,
-  del,
-  requestBody,
-  response,
+  del, get,
+  getModelSchemaRef, param, patch, post, put, requestBody,
+  response
 } from '@loopback/rest';
 import {VariableMedidor} from '../models';
-import {VariableMedidorRepository} from '../repositories';
+import {VariableMedidorRepository, VVariablesMedidorRepository} from '../repositories';
 
 export class VariableMedidorController {
   constructor(
     @repository(VariableMedidorRepository)
-    public variableMedidorRepository : VariableMedidorRepository,
-  ) {}
+    public variableMedidorRepository: VariableMedidorRepository,
+    @repository(VVariablesMedidorRepository)
+    public vVariablesMedidorRepository: VVariablesMedidorRepository
+  ) { }
 
   @post('/variable-medidors')
   @response(200, {
@@ -43,8 +39,9 @@ export class VariableMedidorController {
       },
     })
     variableMedidor: Omit<VariableMedidor, 'id'>,
-  ): Promise<VariableMedidor> {
-    return this.variableMedidorRepository.create(variableMedidor);
+  ): Promise<any> {
+    const data = await this.variableMedidorRepository.create(variableMedidor);
+    return await this.vVariablesMedidorRepository.findById(data.id, {});
   }
 
   @get('/variable-medidors/count')
@@ -126,7 +123,7 @@ export class VariableMedidorController {
     })
     variableMedidor: VariableMedidor,
   ): Promise<void> {
-    await this.variableMedidorRepository.updateById(id, variableMedidor);
+    return await this.variableMedidorRepository.updateById(id, variableMedidor);
   }
 
   @put('/variable-medidors/{id}')
@@ -136,8 +133,9 @@ export class VariableMedidorController {
   async replaceById(
     @param.path.number('id') id: number,
     @requestBody() variableMedidor: VariableMedidor,
-  ): Promise<void> {
+  ): Promise<any> {
     await this.variableMedidorRepository.replaceById(id, variableMedidor);
+    return await this.vVariablesMedidorRepository.findById(id, {});
   }
 
   @del('/variable-medidors/{id}')
