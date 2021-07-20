@@ -1,7 +1,7 @@
-import {Entity, model, property, belongsTo, hasMany} from '@loopback/repository';
+import {belongsTo, Entity, hasMany, model, property} from '@loopback/repository';
 import {Medidor} from './medidor.model';
-import {Variable} from './variable.model';
 import {RollOver} from './roll-over.model';
+import {Variable} from './variable.model';
 
 @model({
   settings: {idInjection: false, mssql: {schema: 'dbo', table: 'variableMedidor'}}
@@ -24,6 +24,12 @@ export class VariableMedidor extends Entity {
     mssql: {columnName: 'quantityId', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'NO'},
   })
   quantityId: number;
+
+  @property({
+    type: 'boolean',
+    mssql: {columnName: 'estado', dataType: 'bit', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
+  })
+  estado?: boolean;
 
   @belongsTo(() => Medidor)
   medidorId: number;
