@@ -1,4 +1,7 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {VariableMedidor} from './variable-medidor.model';
+import {Entidad} from './entidad.model';
+import {Jerarquia} from './jerarquia.model';
 
 @model({
   settings: {idInjection: false, mssql: {schema: 'dbo', table: 'medidorEntidad'}}
@@ -13,25 +16,6 @@ export class MedidorEntidad extends Entity {
     mssql: {columnName: 'id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'NO'},
   })
   id: number;
-
-  @property({
-    type: 'number',
-    required: true,
-    precision: 10,
-    scale: 0,
-    mssql: {columnName: 'variableMedidorId', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'NO'},
-  })
-  variableMedidorId: number;
-
-  @property({
-    type: 'number',
-    required: true,
-    precision: 10,
-    scale: 0,
-    mssql: {columnName: 'entidadId', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'NO'},
-  })
-  entidadId: number;
-
   @property({
     type: 'date',
     mssql: {columnName: 'fechaInicial', dataType: 'datetime', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
@@ -43,15 +27,6 @@ export class MedidorEntidad extends Entity {
     mssql: {columnName: 'fechaFinal', dataType: 'datetime', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'YES'},
   })
   fechaFinal?: string;
-
-  @property({
-    type: 'number',
-    precision: 10,
-    scale: 0,
-    mssql: {columnName: 'jerarquiaId', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'YES'},
-  })
-  jerarquiaId?: number;
-
   @property({
     type: 'string',
     length: -1,
@@ -65,6 +40,14 @@ export class MedidorEntidad extends Entity {
   })
   estado?: boolean;
 
+  @belongsTo(() => VariableMedidor)
+  variableMedidorId: number;
+
+  @belongsTo(() => Entidad)
+  entidadId: number;
+
+  @belongsTo(() => Jerarquia)
+  jerarquiaId: number;
   // Define well-known properties here
 
   // Indexer property to allow additional data

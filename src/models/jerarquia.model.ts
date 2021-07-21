@@ -1,4 +1,5 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, hasMany} from '@loopback/repository';
+import {MedidorEntidad} from './medidor-entidad.model';
 
 @model({settings: {idInjection: false, mssql: {schema: 'dbo', table: 'jerarquia'}}})
 export class Jerarquia extends Entity {
@@ -33,6 +34,8 @@ export class Jerarquia extends Entity {
   })
   estado?: boolean;
 
+  @hasMany(() => MedidorEntidad)
+  medidorEntidads: MedidorEntidad[];
   // Define well-known properties here
 
   // Indexer property to allow additional data

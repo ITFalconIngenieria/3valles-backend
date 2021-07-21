@@ -39,7 +39,7 @@ export class JerarquiaController {
       },
     })
     jerarquia: Omit<Jerarquia, 'id'>,
-  ): Promise<Jerarquia> {
+  ): Promise<any> {
     let data = await this.jerarquiaRepository.create(jerarquia);
 
     return await this.vJerarquiasRepository.findById(data.id, {});
@@ -134,7 +134,7 @@ export class JerarquiaController {
   async replaceById(
     @param.path.number('id') id: number,
     @requestBody() jerarquia: Jerarquia,
-  ): Promise<Jerarquia> {
+  ): Promise<any> {
     await this.jerarquiaRepository.replaceById(id, jerarquia);
     return await this.vJerarquiasRepository.findById(id, {});
   }

@@ -62,6 +62,14 @@ export class VVariablesMedidor extends Entity {
   })
   descripcion: string;
 
+  @property({
+    type: 'string',
+    required: true,
+    length: 200,
+    mssql: {columnName: 'medidor', dataType: 'nvarchar', dataLength: 200, dataPrecision: null, dataScale: null, nullable: 'NO'},
+  })
+  medidor: string;
+
   // Define well-known properties here
 
   // Indexer property to allow additional data
