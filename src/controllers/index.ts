@@ -23,3 +23,4 @@ export * from './entidad-medidor-entidad.controller';
 export * from './medidor-entidad-entidad.controller';
 export * from './jerarquia-medidor-entidad.controller';
 export * from './medidor-entidad-jerarquia.controller';
+export * from './v-medidor-entidad-variable.controller';
