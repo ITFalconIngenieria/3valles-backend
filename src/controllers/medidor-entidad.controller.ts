@@ -4,18 +4,12 @@ import {
   Filter,
   FilterExcludingWhere,
   repository,
-  Where,
+  Where
 } from '@loopback/repository';
 import {
-  post,
-  param,
-  get,
-  getModelSchemaRef,
-  patch,
-  put,
-  del,
-  requestBody,
-  response,
+  del, get,
+  getModelSchemaRef, param, patch, post, put, requestBody,
+  response
 } from '@loopback/rest';
 import {MedidorEntidad} from '../models';
 import {MedidorEntidadRepository} from '../repositories';
@@ -23,8 +17,8 @@ import {MedidorEntidadRepository} from '../repositories';
 export class MedidorEntidadController {
   constructor(
     @repository(MedidorEntidadRepository)
-    public medidorEntidadRepository : MedidorEntidadRepository,
-  ) {}
+    public medidorEntidadRepository: MedidorEntidadRepository,
+  ) { }
 
   @post('/medidor-entidads')
   @response(200, {
@@ -44,7 +38,8 @@ export class MedidorEntidadController {
     })
     medidorEntidad: Omit<MedidorEntidad, 'id'>,
   ): Promise<MedidorEntidad> {
-    return this.medidorEntidadRepository.create(medidorEntidad);
+    let push = await this.medidorEntidadRepository.create(medidorEntidad);
+    return await this.medidorEntidadRepository.findById(push.id, {include: [{relation: 'variableMedidor', scope: {include: [{relation: 'variable'}, {relation: 'medidor'}]}}, {relation: 'jerarquia'}]});
   }
 
   @get('/medidor-entidads/count')
@@ -136,8 +131,9 @@ export class MedidorEntidadController {
   async replaceById(
     @param.path.number('id') id: number,
     @requestBody() medidorEntidad: MedidorEntidad,
-  ): Promise<void> {
+  ): Promise<any> {
     await this.medidorEntidadRepository.replaceById(id, medidorEntidad);
+    return await this.medidorEntidadRepository.findById(id, {include: [{relation: 'variableMedidor', scope: {include: [{relation: 'variable'}, {relation: 'medidor'}]}}, {relation: 'jerarquia'}]});
   }
 
   @del('/medidor-entidads/{id}')
