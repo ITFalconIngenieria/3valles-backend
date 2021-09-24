@@ -11,6 +11,7 @@ import {
   getModelSchemaRef, param, patch, post, put, requestBody,
   response
 } from '@loopback/rest';
+import moment from 'moment';
 import {Entidad} from '../models';
 import {EntidadRepository} from '../repositories';
 
@@ -148,32 +149,68 @@ export class EntidadController {
     @param.query.string('fechai') fechai: string,
     @param.query.string('fechaf') fechaf: string
   ) {
-    let data: any[] = [];
+    let dataConsumo = await this.getDatosMedicion(fechai, fechaf, 0, 2);
+    let dataMedidor = dataConsumo.filter((item) => item.id === medidor)[0];
+    let generadores = await this.getlistOfMedidores(1, 1)
+    let perdidas = generadores.map((item: any) => {return {"label": item.descripcion, "valor": item.quantityId}});
+    let grafico: any[] = [];
 
-    data.push({
-      "lecturaInicial": 3589,
-      "lecturaFinal": 10458,
-      "consumo": 25458,
-      "perdidas": 1478,
-      "total": 5423,
-      "detallePerdidas": [
-        {"generador1": 100},
-        {"generador2": 100},
-        {"generador3": 100},
-        {"generador4": 100},
-        {"generador5": 100}
-      ],
-      "consumoHistorico": [
-        {"2021-02-01T00:00:00.000Z": 25458},
-        {"2021-03-01T00:00:00.000Z": 25458},
-        {"2021-04-01T00:00:00.000Z": 25458},
-        {"2021-05-01T00:00:00.000Z": 25458},
-        {"2021-06-01T00:00:00.000Z": 25458},
-        {"2021-07-01T00:00:00.000Z": 25458},
-        {"2021-08-01T00:00:00.000Z": 25458}
-      ]
-    })
+    grafico.push({"label": moment(fechai).format('YYYY MMM'), "valor": dataMedidor.Consumo})
+    for (let x = 0, fecha: string = fechai; x < 6; x++) {
+      fecha = moment(fecha).add(-1, 'M').startOf('month').format('YYYY-MM-DD HH:mm')
+      let data = await this.getDatosMedicion(fecha, moment(fecha).endOf('month').format('YYYY-MM-DD HH:mm'), 0, 2);
+      let d = data.filter((item) => item.id === medidor)[0]
+      grafico.push({"label": moment(fecha).format('YYYY MMM'), "valor": d.Consumo});
+    }
 
-    return data
+    return {
+      "lecturaInicial": dataMedidor.FI,
+      "lecturaFinal": dataMedidor.FF,
+      "consumo": dataMedidor.Consumo,
+      "perdidas": perdidas.reduce((a: {valor: any;}, b: {valor: any;}) => {return {'valor': a.valor + b.valor}}).valor,
+      "total": dataMedidor.Consumo,
+      "detallePerdidas": perdidas,
+      "consumoHistorico": grafico
+    }
   }
+
+  @get('/resumen-datos/')
+  async resumenDatos(
+    @param.query.string('fechai') fechai: string,
+    @param.query.string('fechaf') fechaf: string
+  ) {
+    let data;
+    let dataGeneracion = await this.getDatosMedicion(fechai, fechaf, 1, 1);
+    let dataConsumo = await this.getDatosMedicion(fechai, fechaf, 0, 2);
+
+    data = {
+      "detalleGeneracion": dataGeneracion,
+      "totalGeneracion": dataGeneracion.reduce((a: {Consumo: any;}, b: {Consumo: any;}) => {return {'Consumo': a.Consumo + b.Consumo}}).Consumo,
+      "detalleConsumo": dataConsumo,
+      "totalConsumo": dataConsumo.reduce((a: {Consumo: any;}, b: {Consumo: any;}) => {return {'Consumo': a.Consumo + b.Consumo}}).Consumo
+    };
+
+    return data;
+  }
+
+
+  async getlistOfMedidores(entidad: number, variable: number): Promise<any> {
+    return await this.entidadRepository.dataSource.execute(
+      `select * from vListadoMedidores where entidad=${entidad} and variableId=${variable}`
+    );
+  }
+
+  async getDatosMedicion(fechai: string, fechaf: string, entidad: number, variable: number) {
+    let dataMedicion: any[] = [];
+    let listOfMedidores: any[] = await this.getlistOfMedidores(entidad, variable);
+    for (let medidor of listOfMedidores) {
+      let dataMedidor: any[] = await this.entidadRepository.dataSource.execute(
+        `usp_ObtenerConsumo '${fechai}','${fechaf}',${medidor.id},${medidor.sourceId},${medidor.quantityId}`
+      );
+      dataMedicion.push({"id": medidor.id, "medidor": medidor.descripcion, "tipoEntidad": medidor.tipoEntidad, "FI": dataMedidor[0].FI, "FF": dataMedidor[0].FF, "Consumo": dataMedidor[0].Consumo * medidor.multiplicador});
+    }
+
+    return dataMedicion;
+  }
+
 }
