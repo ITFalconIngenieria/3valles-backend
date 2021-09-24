@@ -12,3 +12,4 @@ export * from './v-medidor-pme.model';
 export * from './v-variables-medidor.model';
 export * from './v-variable-pme.model';
 export * from './v-medidor-entidad-variable.model';
+export * from './datos.model';
