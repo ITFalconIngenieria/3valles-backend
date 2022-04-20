@@ -12,4 +12,7 @@ export * from './v-medidor-pme.repository';
 export * from './v-variables-medidor.repository';
 export * from './v-variable-pme.repository';
 export * from './v-medidor-entidad-variable.repository';
-export * from './datos.repository';
+export * from './centro-costo.repository';
+export * from './factores.repository';
+export * from './grupos.repository';
+export * from './medidores-centro-costo.repository';

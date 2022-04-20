@@ -12,4 +12,7 @@ export * from './v-medidor-pme.model';
 export * from './v-variables-medidor.model';
 export * from './v-variable-pme.model';
 export * from './v-medidor-entidad-variable.model';
-export * from './datos.model';
+export * from './factores.model';
+export * from './centro-costo.model';
+export * from './grupos.model';
+export * from './medidores-centro-costo.model';

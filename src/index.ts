@@ -3,6 +3,17 @@ import {ApplicationConfig, TresVallesBackendApplication} from './application';
 export * from './application';
 
 export async function main(options: ApplicationConfig = {}) {
+  /*
+    let ruta = __dirname + '/../../certificado/';
+    const config = {
+      rest: {
+        protocol: 'https',
+        key: readFileSync(`${ruta}server.key`),
+        cert: readFileSync(`${ruta}server.crt`)
+      }
+    }
+  
+    const app = new TresVallesBackendApplication(config);*/
   const app = new TresVallesBackendApplication(options);
   await app.boot();
   await app.start();
