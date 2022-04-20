@@ -1,4 +1,6 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, hasMany} from '@loopback/repository';
+import {CentroCosto} from './centro-costo.model';
+import {Grupos} from './grupos.model';
 
 @model({settings: {idInjection: false, mssql: {schema: 'dbo', table: 'factores'}}})
 export class Factores extends Entity {
@@ -40,6 +42,11 @@ export class Factores extends Entity {
   })
   valor?: number;
 
+  @hasMany(() => CentroCosto, {keyTo: 'factorId'})
+  centroCostos: CentroCosto[];
+
+  @hasMany(() => Grupos, {keyTo: 'factorId'})
+  grupos: Grupos[];
   // Define well-known properties here
 
   // Indexer property to allow additional data

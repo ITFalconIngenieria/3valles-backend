@@ -3,6 +3,7 @@ import {Medidor} from './medidor.model';
 import {RollOver} from './roll-over.model';
 import {Variable} from './variable.model';
 import {MedidorEntidad} from './medidor-entidad.model';
+import {MedidoresCentroCosto} from './medidores-centro-costo.model';
 
 @model({
   settings: {idInjection: false, mssql: {schema: 'dbo', table: 'variableMedidor'}}
@@ -43,6 +44,9 @@ export class VariableMedidor extends Entity {
 
   @hasMany(() => MedidorEntidad)
   medidorEntidads: MedidorEntidad[];
+
+  @hasMany(() => MedidoresCentroCosto)
+  medidoresCentroCostos: MedidoresCentroCosto[];
   // Define well-known properties here
 
   // Indexer property to allow additional data

@@ -1,4 +1,6 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {CentroCosto} from './centro-costo.model';
+import {VariableMedidor} from './variable-medidor.model';
 
 @model({
   settings: {idInjection: false, mssql: {schema: 'dbo', table: 'medidoresCentroCosto'}}
@@ -13,25 +15,6 @@ export class MedidoresCentroCosto extends Entity {
     mssql: {columnName: 'id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'YES'},
   })
   id: number;
-
-  @property({
-    type: 'number',
-    required: true,
-    precision: 10,
-    scale: 0,
-    mssql: {columnName: 'centroCostoId', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'NO'},
-  })
-  centroCostoId: number;
-
-  @property({
-    type: 'number',
-    required: true,
-    precision: 10,
-    scale: 0,
-    mssql: {columnName: 'variableMedidorId', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'NO'},
-  })
-  variableMedidorId: number;
-
   @property({
     type: 'number',
     precision: 53,
@@ -39,6 +22,11 @@ export class MedidoresCentroCosto extends Entity {
   })
   operacion?: number;
 
+  @belongsTo(() => CentroCosto)
+  centroCostoId: number;
+
+  @belongsTo(() => VariableMedidor)
+  variableMedidorId: number;
   // Define well-known properties here
 
   // Indexer property to allow additional data

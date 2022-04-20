@@ -1,4 +1,6 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {Factores} from './factores.model';
+import {CentroCosto} from './centro-costo.model';
 
 @model({settings: {idInjection: false, mssql: {schema: 'dbo', table: 'grupos'}}})
 export class Grupos extends Entity {
@@ -19,24 +21,11 @@ export class Grupos extends Entity {
     mssql: {columnName: 'nombre', dataType: 'varchar', dataLength: 250, dataPrecision: null, dataScale: null, nullable: 'NO'},
   })
   nombre: string;
+  @belongsTo(() => Factores)
+  factorId: number;
 
-  @property({
-    type: 'number',
-    required: true,
-    precision: 10,
-    scale: 0,
-    mssql: {columnName: 'centroCostoId', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'NO'},
-  })
+  @belongsTo(() => CentroCosto)
   centroCostoId: number;
-
-  @property({
-    type: 'number',
-    precision: 10,
-    scale: 0,
-    mssql: {columnName: 'factorId', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'YES'},
-  })
-  factorId?: number;
-
   // Define well-known properties here
 
   // Indexer property to allow additional data

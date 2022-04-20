@@ -1,11 +1,12 @@
 import {inject, Getter} from '@loopback/core';
 import {DefaultCrudRepository, repository, BelongsToAccessor, HasManyRepositoryFactory} from '@loopback/repository';
 import {ConnDataSource} from '../datasources';
-import {VariableMedidor, VariableMedidorRelations, Medidor, Variable, RollOver, MedidorEntidad} from '../models';
+import {VariableMedidor, VariableMedidorRelations, Medidor, Variable, RollOver, MedidorEntidad, MedidoresCentroCosto} from '../models';
 import {MedidorRepository} from './medidor.repository';
 import {VariableRepository} from './variable.repository';
 import {RollOverRepository} from './roll-over.repository';
 import {MedidorEntidadRepository} from './medidor-entidad.repository';
+import {MedidoresCentroCostoRepository} from './medidores-centro-costo.repository';
 
 export class VariableMedidorRepository extends DefaultCrudRepository<
   VariableMedidor,
@@ -21,10 +22,14 @@ export class VariableMedidorRepository extends DefaultCrudRepository<
 
   public readonly medidorEntidads: HasManyRepositoryFactory<MedidorEntidad, typeof VariableMedidor.prototype.id>;
 
+  public readonly medidoresCentroCostos: HasManyRepositoryFactory<MedidoresCentroCosto, typeof VariableMedidor.prototype.id>;
+
   constructor(
-    @inject('datasources.conn') dataSource: ConnDataSource, @repository.getter('MedidorRepository') protected medidorRepositoryGetter: Getter<MedidorRepository>, @repository.getter('VariableRepository') protected variableRepositoryGetter: Getter<VariableRepository>, @repository.getter('RollOverRepository') protected rollOverRepositoryGetter: Getter<RollOverRepository>, @repository.getter('MedidorEntidadRepository') protected medidorEntidadRepositoryGetter: Getter<MedidorEntidadRepository>,
+    @inject('datasources.conn') dataSource: ConnDataSource, @repository.getter('MedidorRepository') protected medidorRepositoryGetter: Getter<MedidorRepository>, @repository.getter('VariableRepository') protected variableRepositoryGetter: Getter<VariableRepository>, @repository.getter('RollOverRepository') protected rollOverRepositoryGetter: Getter<RollOverRepository>, @repository.getter('MedidorEntidadRepository') protected medidorEntidadRepositoryGetter: Getter<MedidorEntidadRepository>, @repository.getter('MedidoresCentroCostoRepository') protected medidoresCentroCostoRepositoryGetter: Getter<MedidoresCentroCostoRepository>,
   ) {
     super(VariableMedidor, dataSource);
+    this.medidoresCentroCostos = this.createHasManyRepositoryFactoryFor('medidoresCentroCostos', medidoresCentroCostoRepositoryGetter,);
+    this.registerInclusionResolver('medidoresCentroCostos', this.medidoresCentroCostos.inclusionResolver);
     this.medidorEntidads = this.createHasManyRepositoryFactoryFor('medidorEntidads', medidorEntidadRepositoryGetter,);
     this.registerInclusionResolver('medidorEntidads', this.medidorEntidads.inclusionResolver);
     this.rollOvers = this.createHasManyRepositoryFactoryFor('rollOvers', rollOverRepositoryGetter,);
