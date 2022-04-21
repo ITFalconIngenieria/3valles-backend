@@ -38,3 +38,4 @@ export * from './centro-costo-medidores-centro-costo.controller';
 export * from './medidores-centro-costo-centro-costo.controller';
 export * from './variable-medidor-medidores-centro-costo.controller';
 export * from './medidores-centro-costo-variable-medidor.controller';
+export * from './calculos-factura.controller';
