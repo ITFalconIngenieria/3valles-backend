@@ -1,5 +1,4 @@
-import {Entity, model, property, belongsTo, hasMany} from '@loopback/repository';
-import {Factores} from './factores.model';
+import {Entity, hasMany, model, property} from '@loopback/repository';
 import {Grupos} from './grupos.model';
 import {MedidoresCentroCosto} from './medidores-centro-costo.model';
 
@@ -22,9 +21,6 @@ export class CentroCosto extends Entity {
     mssql: {columnName: 'nombre', dataType: 'varchar', dataLength: 250, dataPrecision: null, dataScale: null, nullable: 'NO'},
   })
   nombre: string;
-
-  @belongsTo(() => Factores)
-  factorId: number;
 
   @hasMany(() => Grupos)
   grupos: Grupos[];

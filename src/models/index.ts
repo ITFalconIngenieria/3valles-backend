@@ -16,3 +16,4 @@ export * from './factores.model';
 export * from './centro-costo.model';
 export * from './grupos.model';
 export * from './medidores-centro-costo.model';
+export * from './datos.model';

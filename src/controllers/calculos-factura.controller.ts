@@ -23,15 +23,12 @@ export class CalculosFacturaController {
 
   @get('/factores-factura')
   async factoresFactura(
-    @param.query.number('cc') cc: number,
     @param.query.number('grupo') grupo: number
   ) {
     return await this.repo.execute(`
-      select f.valor factorC,f2.valor factorG from centrocosto cc
-      inner join factores f on cc.factorId=f.id
-      cross join grupos g
-      inner join factores f2 on g.factorId=f2.id
-      where cc.id=${cc} and g.id=${grupo}
+    select f.valor from grupos g
+    inner join factores f on f.id=g.factorId
+    where g.id=${grupo}
     `)
   }
 }

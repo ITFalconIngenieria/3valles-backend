@@ -16,3 +16,4 @@ export * from './centro-costo.repository';
 export * from './factores.repository';
 export * from './grupos.repository';
 export * from './medidores-centro-costo.repository';
+export * from './datos.repository';
