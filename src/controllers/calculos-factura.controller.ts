@@ -31,4 +31,21 @@ export class CalculosFacturaController {
     where g.id=${grupo}
     `)
   }
+
+  @get('/generacion')
+  async generacionInterna(
+    @param.query.boolean('tipo') tipo: boolean,
+    @param.query.string('f1') f1: string,
+    @param.query.string('f2') f2: string
+  ) {
+    return await this.repo.execute(`spLecturaGeneracion ${tipo},'${f1}','${f2}'`)
+  }
+
+  @get('/ventaEnee')
+  async ventEnee(
+    @param.query.string('f1') f1: string,
+    @param.query.string('f2') f2: string
+  ) {
+    return await this.repo.execute(`spLecturaVentaENEE '${f1}','${f2}'`)
+  }
 }
