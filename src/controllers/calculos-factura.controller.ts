@@ -26,9 +26,9 @@ export class CalculosFacturaController {
     @param.query.number('grupo') grupo: number
   ) {
     return await this.repo.execute(`
-    select f.valor from grupos g
+    select g.nombre,f.valor from grupos g
     inner join factores f on f.id=g.factorId
-    where g.id=${grupo}
+	  where g.centroCostoId=${grupo}
     `)
   }
 
