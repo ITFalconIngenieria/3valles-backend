@@ -36,11 +36,11 @@ export class Factores extends Entity {
   fechaFinal: string;
 
   @property({
-    type: 'number',
+    type: 'string',
     precision: 53,
     mssql: {columnName: 'valor', dataType: 'float', dataLength: null, dataPrecision: 53, dataScale: null, nullable: 'YES'},
   })
-  valor?: number;
+  valor?: string;
   /*
     @hasMany(() => CentroCosto, {keyTo: 'factorId'})
     centroCostos: CentroCosto[];
