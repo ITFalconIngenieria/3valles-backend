@@ -5,7 +5,7 @@ const config = {
   name: 'conn',
   connector: 'mssql',
   //url: 'mssql://dev:Control1*@SRVPME01-3VALLE\\ION/facturacionEnergetica',
-  host: 'DEV-02',//'SRVPME01-3VALLE\\ION',
+  host: 'LaptopIT',//'SRVPME01-3VALLE\\ION',
   port: 1433,
   user: 'sa',// 'dev',
   password: 'control1*',//Control1*',
