@@ -9,7 +9,8 @@ const config = {
   port: 1433,
   user: 'sa',// 'dev',
   password: 'control1*',//Control1*',
-  database: 'facturacionEnergetica'
+  database: 'facturacionEnergetica',
+  requestTimeout: 60000
 };
 
 // Observe application's life cycle to disconnect the datasource when
